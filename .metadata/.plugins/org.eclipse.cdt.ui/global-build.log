@@ -1,0 +1,10 @@
+15:40:05 **** Build of configuration Nios II for project Assignment-1 ****
+make all 
+Info: Building ../Assignment-1_bsp/
+C:/intelFPGA/18.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Assignment-1_bsp/
+[BSP build complete]
+Info: Compiling initCreateTasks.c to obj/default/initCreateTasks.o
+nios2-elf-gcc -xc -MP -MMD -c -I../Assignment-1_bsp//HAL/inc -I../Assignment-1_bsp/ -I../Assignment-1_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mhw-div -mhw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/initCreateTasks.o initCreateTasks.c
+initCreateTasks.c:7:22: fatal error: FreeRTOS.h: No such file or directory
+compilation terminated.
+make: *** [obj/default/initCreateTasks.o] Error 1
