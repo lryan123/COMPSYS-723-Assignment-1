@@ -1,4 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;Assignment-1/hello_world.c&apos; to &apos;initCreateTasks.c&apos;" description="Rename resource &apos;hello_world.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="hello_world.c" name="initCreateTasks.c" stamp="1743559507894" updateReferences="true"/>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;Assignment-1/hello_world.c&apos; to &apos;initCreateTasks.c&apos;" description="Rename resource &apos;hello_world.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="hello_world.c" name="initCreateTasks.c" stamp="1743559507894" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;Assignment-1/initCreateTasks.c&apos; to &apos;hello_world.c&apos;" description="Rename resource &apos;initCreateTasks.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="initCreateTasks.c" name="hello_world.c" stamp="1743561900822" updateReferences="true"/>
 </session>
