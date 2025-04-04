@@ -1,0 +1,126 @@
+// Standard includes
+#include <stddef.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdio.h>
+
+// Scheduler includes
+#include "FreeRTOS/FreeRTOS.h"
+#include "FreeRTOS/task.h"
+#include "FreeRTOS/timers.h"
+#include "FreeRTOS/queue.h"
+#include "FreeRTOS/semphr.h"
+
+#include "altera_avalon_pio_regs.h"
+#include "system.h"
+#include "sys/alt_irq.h"
+#include "io.h"
+
+// Definition of Task Stacks
+#define TASK_STACKSIZE 2048
+#define SEVEN_SEG_BASE 0x43104
+
+// Definition of Task Priorities
+#define PRINT_STATUS_TASK_PRIORITY
+#define FREQMONITOR_TASK_PRIORITY 4
+#define MAINTENANCE_TASK_PRIORITY 1
+#define LOADCTRL_TASK_PRIORITY 3
+#define VGADISPLAY_TASK_PRIORITY 5
+#define SWITCHPOLLING_TASK 2
+
+// Definition of Message Queue
+#define MSG_QUEUE_SIZE 30
+QueueHandle_t msgqueue;
+
+// used to delete a task
+TaskHandle_t xHandle;
+
+// Definition of Semaphore
+SemaphoreHandle_t shared_resource_sem;
+
+// globals variables
+unsigned int number_of_messages_sent = 0;
+unsigned int number_of_messages_received_task1 = 0;
+unsigned int number_of_messages_received_task2 = 0;
+unsigned int getsem_task1_got_sem = 0;
+unsigned int getsem_task2_got_sem = 0;
+char sem_owner_task_name[20];
+
+
+// Local Function Prototypes
+int initOSDataStructs(void);
+int initCreateTasks(void);
+
+/*
+void freq_monitor_task(void* pvParameters){
+	while(1){
+
+	}
+}
+
+void load_ctrl_task(void* pvParameters){
+	while(1){
+
+	}
+}
+
+void maintenance_task(void* pvParameters){
+	while(1){
+
+	}
+}
+
+void switch_polling_task(void* pvParameters){
+	while(1){
+
+	}
+}
+
+void vga_display_task(void* pvParameters){
+	while(1){
+
+	}
+}
+
+int initOSDataStructs(void) {
+	msgqueue = xQueueCreate( MSG_QUEUE_SIZE, sizeof( void* ) );
+	//defining the lcd semaphore here
+	shared_lcd_sem = xSemaphoreCreateCounting(9999, 1);
+	return 0;
+}
+
+int initCreateTasks(void) {
+	xTaskCreate(freq_monitor_task, "freq_monitor_task", TASK_STACKSIZE, NULL,FREQMONITOR_TASK_PRIORITY, NULL);
+	xTaskCreate(load_ctrl_task, "load_ctrl_task", TASK_STACKSIZE, NULL,LOADCTRL_TASK_PRIORITY,NULL);
+	xTaskCreate(maintenance_task, "maintenance_task", TASK_STACKSIZE, NULL,MAINTENANCE_TASK_PRIORITY, NULL);
+	xTaskCreate(switch_polling_task, "switch_polling_task", TASK_STACKSIZE, NULL,SWITCHPOLLING_TASK, NULL);
+	xTaskCreate(vga_display_task, "vga_display_task", TASK_STACKSIZE, NULL,VGADISPLAY_TASK_PRIORITY, NULL);
+	return 0;
+} */
+
+void freq_relay(void* context) {
+	unsigned int temp = IORD(FREQUENCY_ANALYSER_BASE, 0);
+
+	printf("Running ISR\n");
+	if (temp != 0) {
+		printf("%f Hz\n", 16000/(double)temp);
+	} else {
+		printf("Invalid reading");
+	}
+	return;
+}
+
+
+int main() {
+	alt_irq_register(FREQUENCY_ANALYSER_IRQ, 0, freq_relay);
+	while(1){
+		IOWR_ALTERA_AVALON_PIO_DATA(GREEN_LEDS_BASE, 0X55);
+		usleep(1000000);
+		IOWR_ALTERA_AVALON_PIO_DATA(GREEN_LEDS_BASE, 0Xaa);
+		usleep(1000000);
+	}
+
+  return 0;
+}
+
+

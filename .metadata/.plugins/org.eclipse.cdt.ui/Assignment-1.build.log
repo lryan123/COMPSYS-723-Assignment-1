@@ -1,6 +1,9 @@
-15:45:26 **** Clean-only build of configuration Nios II for project Assignment-1 ****
-make clean 
-[Assignment-1 clean complete]
+12:38:44 **** Incremental Build of configuration Nios II for project Assignment-1 ****
+make all 
+Info: Building ../Assignment-1_bsp/
+C:/intelFPGA/18.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Assignment-1_bsp/
+[BSP build complete]
+[Assignment-1 build complete]
 
-15:45:28 Build Finished (took 2s.435ms)
+12:38:45 Build Finished (took 1s.144ms)
 
